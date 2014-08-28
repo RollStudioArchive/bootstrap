@@ -1224,9 +1224,13 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         }
 
         scope.labels = new Array(7);
+
         for (var j = 0; j < 7; j++) {
+
+          var abbrFilter = ctrl.formatDayHeader == 'EE' ? getVeryAbbrWeekDay(dateFilter(days[j].date, 'EEE')) : dateFilter(days[j].date, ctrl.formatDayHeader);
+
           scope.labels[j] = {
-            abbr: dateFilter(days[j].date, ctrl.formatDayHeader),
+            abbr: abbrFilter,
             full: dateFilter(days[j].date, 'EEEE')
           };
         }
@@ -1241,6 +1245,10 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
           while( scope.weekNumbers.push(weekNumber++) < numWeeks ) {}
         }
       };
+
+      function getVeryAbbrWeekDay(weekday) {
+        return weekday.substring(0, weekday.length - 1);
+      }
 
       ctrl.compare = function(date1, date2) {
         return (new Date( date1.getFullYear(), date1.getMonth(), date1.getDate() ) - new Date( date2.getFullYear(), date2.getMonth(), date2.getDate() ) );
@@ -1554,8 +1562,8 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
       scope.$watch('isOpen', function(value) {
         if (value) {
           scope.$broadcast('datepicker.focus');
-          scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-          scope.position.top = scope.position.top + element.prop('offsetHeight');
+          //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+          //scope.position.top = scope.position.top + element.prop('offsetHeight');
 
           $document.bind('click', documentClickBind);
         } else {
