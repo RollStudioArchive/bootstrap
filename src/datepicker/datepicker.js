@@ -577,8 +577,8 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
       scope.$watch('isOpen', function(value) {
         if (value) {
           scope.$broadcast('datepicker.focus');
-          scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-          scope.position.top = scope.position.top + element.prop('offsetHeight');
+          //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+          //scope.position.top = scope.position.top + element.prop('offsetHeight');
 
           $document.bind('click', documentClickBind);
         } else {
