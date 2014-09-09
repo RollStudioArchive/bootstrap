@@ -2,7 +2,7 @@
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.12.0-SNAPSHOT - 2014-09-01
+ * Version: 0.12.0-SNAPSHOT - 2014-09-09
  * License: MIT
  */
 angular.module("ui.bootstrap", ["ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
@@ -1579,8 +1579,8 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
       scope.$watch('isOpen', function(value) {
         if (value) {
           scope.$broadcast('datepicker.focus');
-          //scope.position = appendToBody ? $position.offset(element) : $position.position(element);
-          //scope.position.top = scope.position.top + element.prop('offsetHeight');
+          scope.position = appendToBody ? $position.offset(element) : $position.position(element);
+          scope.position.top = scope.position.top + element.prop('offsetHeight');
 
           $document.bind('click', documentClickBind);
         } else {
