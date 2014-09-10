@@ -559,7 +559,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
 
         if ( closeOnDateSelection ) {
           scope.isOpen = false;
-          element[0].focus();
+          element[0].blur();
         }
       };
 
