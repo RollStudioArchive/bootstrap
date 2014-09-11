@@ -559,7 +559,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
 
         if ( closeOnDateSelection ) {
           scope.isOpen = false;
-          element[0].blur();
+          element[0].focus();
         }
       };
 
@@ -577,6 +577,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
       };
 
       var documentClickBind = function(event) {
+
         if (scope.isOpen && event.target !== element[0]) {
           scope.$apply(function() {
             scope.isOpen = false;
