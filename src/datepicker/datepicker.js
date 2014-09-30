@@ -633,7 +633,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
           scope.isOpen = false;
           element[0].blur();
         }
-      }
+      };
 
       scope.close = function() {
         scope.isOpen = false;
