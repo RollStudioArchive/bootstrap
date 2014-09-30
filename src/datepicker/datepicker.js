@@ -599,6 +599,16 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         scope.dateSelection( date );
       };
 
+      //luruke
+      scope.closeMobile = function(e){
+        var el = angular.element(e.target);
+
+        if( el.hasClass('main-dropdown') && scope.isOpen){
+          scope.isOpen = false;
+          element[0].blur();
+        }
+      }
+
       scope.close = function() {
         scope.isOpen = false;
         element[0].focus();
