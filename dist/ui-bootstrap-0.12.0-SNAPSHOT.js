@@ -2,7 +2,7 @@
  * angular-ui-bootstrap
  * http://angular-ui.github.io/bootstrap/
 
- * Version: 0.12.0-SNAPSHOT - 2014-09-11
+ * Version: 0.12.0-SNAPSHOT - 2014-09-30
  * License: MIT
  */
 angular.module("ui.bootstrap", ["ui.bootstrap.transition","ui.bootstrap.collapse","ui.bootstrap.accordion","ui.bootstrap.alert","ui.bootstrap.bindHtml","ui.bootstrap.buttons","ui.bootstrap.carousel","ui.bootstrap.dateparser","ui.bootstrap.position","ui.bootstrap.datepicker","ui.bootstrap.dropdown","ui.bootstrap.modal","ui.bootstrap.pagination","ui.bootstrap.tooltip","ui.bootstrap.popover","ui.bootstrap.progressbar","ui.bootstrap.rating","ui.bootstrap.tabs","ui.bootstrap.timepicker","ui.bootstrap.typeahead"]);
@@ -1536,7 +1536,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
 
         if ( closeOnDateSelection ) {
           scope.isOpen = false;
-          element[0].blur();
+          element[0].focus();
         }
       };
 
@@ -1601,6 +1601,16 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
         }
         scope.dateSelection( date );
       };
+
+      //luruke
+      scope.closeMobile = function(e){
+        var el = angular.element(e.target);
+
+        if( el.hasClass('main-dropdown') && scope.isOpen){
+          scope.isOpen = false;
+          element[0].blur();
+        }
+      }
 
       scope.close = function() {
         scope.isOpen = false;
