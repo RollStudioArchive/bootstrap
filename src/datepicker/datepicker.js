@@ -637,7 +637,7 @@ function ($compile, $parse, $document, $position, dateFilter, dateParser, datepi
 
       scope.close = function() {
         scope.isOpen = false;
-        element[0].focus();
+        element[0].blur();
       };
 
       var $popup = $compile(popupEl)(scope);
