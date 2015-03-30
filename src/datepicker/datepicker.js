@@ -227,10 +227,18 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         return ((month === 1) && (year % 4 === 0) && ((year % 100 !== 0) || (year % 400 === 0))) ? 29 : DAYS_IN_MONTH[month];
       }
 
-      function getDates(startDate, n) {
-        var dates = new Array(n), current = new Date(startDate), i = 0;
+      function getDates(startDate, n, month) {
+        var dates = new Array(), current = new Date(startDate), i = 0;
         current.setHours(12); // Prevent repeated dates because of timezone bug
-        while ( i < n ) {
+
+        function needsFilling(n) {
+          return n % 7 != 0;
+        }
+
+        while (
+          (i < n && current.getMonth() <= month) ||
+          (current.getMonth() > month && needsFilling(i))
+        ) {
           dates[i++] = new Date(current);
           current.setDate( current.getDate() + 1 );
         }
@@ -249,9 +257,8 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
           firstDate.setDate( - numDisplayedFromPreviousMonth + 1 );
         }
 
-        // 42 is the number of days on a six-month calendar
-        var days = getDates(firstDate, ctrl.daysToShow);
-        for (var i = 0; i < ctrl.daysToShow; i ++) {
+        var days = getDates(firstDate, ctrl.daysToShow, month);
+        for (var i = 0; i < days.length; i ++) {
           days[i] = angular.extend(ctrl.createDateObject(days[i], ctrl.formatDay), {
             secondary: days[i].getMonth() !== month,
             uid: scope.uniqueId + '-' + i
