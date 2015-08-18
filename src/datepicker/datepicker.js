@@ -227,7 +227,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         return ((month === 1) && (year % 4 === 0) && ((year % 100 !== 0) || (year % 400 === 0))) ? 29 : DAYS_IN_MONTH[month];
       }
 
-      function getDates(startDate, n, month) {
+      function getDates(startDate, n, month, year) {
         var dates = new Array(), current = new Date(startDate), i = 0;
         current.setHours(12); // Prevent repeated dates because of timezone bug
 
@@ -236,12 +236,13 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
         }
 
         while (
-          (i < n && current.getMonth() <= month) ||
-          (current.getMonth() > month && needsFilling(i))
+          (i < n && (current.getMonth() <= month || current.getYear() < year)) ||
+          ((current.getMonth() > month || current.getYear() > year) && needsFilling(i))
         ) {
           dates[i++] = new Date(current);
           current.setDate( current.getDate() + 1 );
         }
+
         return dates;
       }
 
@@ -257,7 +258,7 @@ angular.module('ui.bootstrap.datepicker', ['ui.bootstrap.dateparser', 'ui.bootst
           firstDate.setDate( - numDisplayedFromPreviousMonth + 1 );
         }
 
-        var days = getDates(firstDate, ctrl.daysToShow, month);
+        var days = getDates(firstDate, ctrl.daysToShow, month, year);
         for (var i = 0; i < days.length; i ++) {
           days[i] = angular.extend(ctrl.createDateObject(days[i], ctrl.formatDay), {
             secondary: days[i].getMonth() !== month,
